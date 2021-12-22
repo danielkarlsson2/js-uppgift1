@@ -1,0 +1,17 @@
+.head {
+    font-family: roboto;
+    line-height: 4rem;
+    font-family: 'Montserrat', sans-serif;
+    
+
+}
+
+.regForm {
+    /* margin-top: 4rem; */
+}
+
+.feedback {
+    font-style: italic;
+    font-size: .8rem;
+    color: red;
+}
