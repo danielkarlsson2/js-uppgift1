@@ -23,32 +23,43 @@
 
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Förnamn:</label>
-              <input type="text" class="form-control" id="firstName" aria-describedby="firstNameHelp">
-              <div id="firstName" class="form-text d-none">Skriv in ditt förnamn:</div>
+              <input type="text" class="form-control firstName" id="firstName" aria-describedby="firstNameHelp" minlength="2">
+              <!-- <div id="firstName" class="form-text">Skriv in ditt förnamn:</div> -->
                 <div id="firstName-error" class="feedback"></div>
             </div>
+
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Efternamn:</label>
-              <input type="text" class="form-control" id="lastName" aria-describedby="lastNameHelp">
-              <div id="emailHelp" class="form-text d-none">Skriv in ditt efternamn:</div>
+              <input type="text" class="form-control lastName" id="lastName" aria-describedby="lastNameHelp">
+              <!-- <div id="emailHelp" class="form-text d-none">Skriv in ditt efternamn:</div> -->
                 <div id="lastName-error" class="feedback"></div>
             </div>
+
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Email address:</label>
               <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
-              <div id="emailHelp" class="form-text d-none">Skriv in din emailadress:</div>
+              <!-- <div id="emailHelp" class="form-text d-none">Skriv in din emailadress:</div> -->
                 <div id="email-error" class="feedback"></div>
             </div>
             <!-- <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">Password</label>
               <input type="password" class="form-control" id="exampleInputPassword1">
             </div> -->
-            <div class="mb-3 form-check">
+            <!-- <div class="mb-3 form-check">
               <input type="checkbox" class="form-check-input" id="exampleCheck1">
               <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
-            <button type="submit" class="btn btn-primary">Skicka</button>
+            </div> -->
+            <button type="submit" class="btn btn-primary" id="submit">Skicka</button>
           </form>
+
+
+          <div id="output">
+            <ul></ul>
+          </div>
+
+
+
+          
 
           <!-- ----- END ----- -->
 
