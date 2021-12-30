@@ -10,6 +10,10 @@
     /* margin-top: 4rem; */
 }
 
+.li {
+    list-style-type: none;
+}
+
 .feedback {
     font-style: italic;
     font-size: .8rem;
