@@ -1,3 +1,7 @@
+.container {
+    max-width: 600px;
+}
+
 .head {
     font-family: roboto;
     line-height: 4rem;
@@ -6,9 +10,18 @@
 
 }
 
-.regForm {
-    /* margin-top: 4rem; */
+.btn {
+    /* margin-top: 2rem; */
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    width: 100%;
+    background-color: rgb(37, 155, 223);
 }
+
+.inputs {
+    position: relative;
+}
+
 
 .li {
     list-style-type: none;
@@ -20,15 +33,23 @@
     color: red;
 }
 
-.btn {
-    /* margin-top: 2rem; */
-    margin-bottom: 2rem;
+.is-valid {
+    border: 1px solid;
 }
 
 
 
 .invalid {
     border: 1px solid red;
+}
+
+.fa-times,
+.fa-check {
+    position: absolute;
+    right: 1rem;
+    top: 2.7rem;
+    font-size: 1.1rem;
+    display: none;
 }
 
 

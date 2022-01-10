@@ -2,89 +2,89 @@
 const firstName = document.querySelector('#firstName');
 const lastName = document.querySelector('#lastName');
 const email = document.querySelector('#email');
-
-
 const regForm = document.querySelector('#regForm');
-
 const output = document.querySelector('#output');
+const btn = document.querySelector('#submit');
 
-
+const error = document.querySelector('#error');
 
 
 // ----- Validering -----
-const validateFirstName = (fNameInput) => {
-    const input = document.querySelector('#firstName');
-    const error = document.querySelector('#firstName-error');
+const validateName = (input) => {     
 
-    if(input.value === '') {
-        error.innerText = 'Du måste ange ett namn';
-        firstName.classList.add('invalid');        
+    if(input.value.trim() === '') {
+        setError(input, 'Du måste ange ett namn')           
+    }
+    else if (input.value.trim().length < 2) {
+        setError(input, 'Du måste ange minst två bokstäver')         
+    }
+    else {
+        setSuccess(input)
     }
 }
-const validateLastName = (lNameInput) => {
-    const input = document.querySelector('#lastName');
-    const error = document.querySelector('#lastName-error');
-
-    if(input.value === '') {
-        error.innerText = 'Du måste ange ett namn';
-        lastName.classList.add('invalid');        
-    }
-}
-const validateEmail = (emailInput) => {
-    const input = document.querySelector('#email');
-    const error = document.querySelector('#email-error');
+const validateEmail = email => {
+   let regEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     
-    if(input.value === '') {
-        error.innerText = 'Du måste ange en emailadress';
-        email.classList.add('invalid');
+    if(email.value.trim() === '') {
+        setError(email, 'Du måste ange en emailadress')
+    }
+    else if(!regEx.test(email.value)) {
+        setError(email, 'Otillåten emailadress')
+    }
+    else {        
+        setSuccess(email)
+    
     }
 }
-
-// ----- Minst två tecken validering -----
-// document.querySelector('#submit').disabled = true;   
-// document.querySelector('#regForm').addEventListener('keyup', e => {
-    
-//     // if (e.target.value == "") {
-//     // if (firstName.value.length < 2 && lastName.value.length < 2) {
-//     if (firstName.value.length < 2) {
-//       document.querySelector('#submit').disabled = true;
-//     }
-//     else if (lastName.value.length < 2) {
-//         document.querySelector('#submit').disabled = true;
-//     }
-//     else {
-//       document.querySelector('#submit').disabled = false;
-//     }
-//   });
-
-
-
-
-// regForm.addEventListener()
-
 
 
 // ----- END  -----
 
-// let user = [];
-let userObjects = [{
-    firstName: '', 
-    lastName: ''},
-    {email:''
+// ----- Feedback funktioner -----
+const setError = (input, textMessage) => {
+   const parent = input.parentElement;
+   input.classList.add('is-invalid');
+   input.classList.remove('is-valid');
+   parent.querySelector('.feedback').innerText = textMessage;
+//    const parent = input.previousElementSibling;
+//    parent.classList.add('is-invalid');
+//    parent.classList.remove('is-valid');
+//    parent.querySelector('.feedback').innerText = textMessage;
+}
+const setSuccess = (input) => {
+    // const parent = input.parentElement;
+    input.classList.remove('is-invalid');
+    input.classList.add('is-valid');
+  
+}
 
-}
-    // {firstName: ''},
-    // {lastName: ''},
-    // {email: ''},
-    // {id: ''},
-]
-const createList = () => {
-    for (i = 0; i < userObjects.length; i++) {
-        let listItem = document.createElement('li');
-        listItem.className = 'unstyled';
-        output.appendChild(listItem);
-    }
-}
+// ----- Spara i lista -----
+let user = [];
+
+
+// let userObjects = [{
+//     firstName: firstName.value, 
+//     lastName: lastName.value,
+//     email: email.value,
+//     id: 0
+// }
+
+
+
+// const createList = () => {
+//     for (i = 0; i < userObjects.length; i++) {
+//         let listItem = document.createElement('li');
+//         // listItem.className = 'unstyled';
+//         output.appendChild(listItem);
+//     }
+// }
+
+
+//  ----- END Spara -----
+
+
+
+
 
 // let addInfo = function () {
 
@@ -99,7 +99,7 @@ const createList = () => {
 //     listItem.appendChild(li)
 //     // li.appendChild(text);
 //     // output.appendChild(li);
-//     console.log(output);
+//     // console.log(output);
 //     // li.appendChild(user);
 
 //     // output.innerHTML =  
@@ -111,6 +111,34 @@ const createList = () => {
 // }
 
 
+// Test 1-----
+function myFunction(list){
+    let text = "";
+    let textEmail = "";
+    let input = document.querySelectorAll("input");
+    textEmail = input[2].value;
+    // // let input = 
+    // for (var i = 0; i < input.length; i++) {
+    //     // text += input[i].value;
+    //     // text += input[i].value;
+    // }
+    text += input[0].value + ' ' + input[1].value + ' ' + textEmail;
+    
+    
+    let li = document.createElement("li");
+    let node = document.createTextNode(text);
+    li.appendChild(node);
+    document.getElementById("output").appendChild(li);
+    
+
+}
+
+// Test 2
+/* const newInput = document.createElement('li');
+newInput.setAttribute("id", "firstNameOutput");
+output.appendChild(newInput)
+document.getElementById(output).innerHTML */
+
 
 
 
@@ -119,22 +147,23 @@ const createList = () => {
 regForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    // user = {
-    //     firstName: firstName.value,
-    //     lastName: lastName.value,
-    //     email: email.value,
-    //     id: '1'
-    // }
+   let user = {
+        firstName: e.currentTarget.firstName.value,
+        lastName: e.currentTarget.lastName.value,
+        email: e.currentTarget.email.value,
+        id: '1'
+    }
+
+    
     // submitValid();
     
-    validateFirstName(); 
-    validateLastName();
-    validateEmail();
-    // addInfo();
-    createList();
+    validateName(firstName); 
+    validateName(lastName); 
+    // validateLastName(lastName);
+    validateEmail(email);
+    myFunction();
     
-    console.log(userObjects);
-
+    console.log(user);
     
     // output.innerHTML = ` 
     // <div id="firstNameOutput">${firstName.value}  ${lastName.value}</div>
@@ -143,3 +172,14 @@ regForm.addEventListener('submit', (e) => {
     // regForm.reset();
 
 })
+
+
+// btn.addEventListener('click', () => {
+    
+
+//     output.innerHTML = 
+//     ` 
+//     <div id="firstNameOutput">${firstName.value}  ${lastName.value}</div>
+//     <div id="emailOutput">${email.value}</div>`    
+    
+// })
