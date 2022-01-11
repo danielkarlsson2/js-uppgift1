@@ -62,9 +62,10 @@ const setError = (input, textMessage) => {
 //    parent.querySelector('.feedback').innerText = textMessage;
 }
 const setSuccess = (input) => {
-    // const parent = input.parentElement;
+    const parent = input.parentElement;
     input.classList.remove('is-invalid');
     input.classList.add('is-valid');
+    parent.querySelector('.feedback').innerText = '';
   
 }
 
