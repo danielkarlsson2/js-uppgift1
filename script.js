@@ -10,29 +10,39 @@ const error = document.querySelector('#error');
 
 
 // ----- Validering -----
-const validateName = (input) => {     
 
+const validateName = (input) => {     
+    
     if(input.value.trim() === '') {
-        setError(input, 'Du måste ange ett namn')           
+        setError(input, 'Du måste ange ett namn')        
+        return false;
     }
     else if (input.value.trim().length < 2) {
-        setError(input, 'Du måste ange minst två bokstäver')         
+        setError(input, 'Du måste ange minst två bokstäver')        
+        return false ;
     }
     else {
         setSuccess(input)
+        return true;
     }
 }
+
+
+
 const validateEmail = email => {
    let regEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     
     if(email.value.trim() === '') {
         setError(email, 'Du måste ange en emailadress')
+        return false;
     }
     else if(!regEx.test(email.value)) {
         setError(email, 'Otillåten emailadress')
+        return false;
     }
     else {        
         setSuccess(email)
+        return true;
     
     }
 }
@@ -141,29 +151,46 @@ document.getElementById(output).innerHTML */
 
 
 
-
+const validate = input => {
+    switch(input.type) {
+        case 'text': return validateName(input)             
+        case 'email': return validateEmail(input)
+        default:
+            break;
+    }
+}
 
 
 regForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    
+    
+    // validateName(firstName); 
+    // validateName(lastName);     
+    // validateEmail(email);
+    // validate()
+    // myFunction();
 
-   let user = {
-        firstName: e.currentTarget.firstName.value,
-        lastName: e.currentTarget.lastName.value,
-        email: e.currentTarget.email.value,
-        id: '1'
+
+    let errors = []
+
+    for(let i = 0; i < regForm.length; i++) {
+        errors[i] = validate(regForm[i])
     }
+    console.log(errors);
 
-    
-    // submitValid();
-    
-    validateName(firstName); 
-    validateName(lastName); 
-    // validateLastName(lastName);
-    validateEmail(email);
-    myFunction();
-    
+    if(!errors.includes(false)) {
+        
+        user = {
+            id: Date.now().toString(),
+            firstName: firstName.value,
+            lastName: lastName.value,
+            email: email.value
+            }
+    }
     console.log(user);
+
+    // console.log(user);
     
     // output.innerHTML = ` 
     // <div id="firstNameOutput">${firstName.value}  ${lastName.value}</div>
@@ -172,14 +199,3 @@ regForm.addEventListener('submit', (e) => {
     // regForm.reset();
 
 })
-
-
-// btn.addEventListener('click', () => {
-    
-
-//     output.innerHTML = 
-//     ` 
-//     <div id="firstNameOutput">${firstName.value}  ${lastName.value}</div>
-//     <div id="emailOutput">${email.value}</div>`    
-    
-// })

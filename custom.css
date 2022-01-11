@@ -34,7 +34,8 @@
 }
 
 .is-valid {
-    border: 1px solid;
+    /* border: 1px solid; */
+    outline: 1px solid green;
 }
 
 
