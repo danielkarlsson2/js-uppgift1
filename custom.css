@@ -53,8 +53,11 @@
     display: none;
 }
 
-
-
-#emailOutput {
-    font-size: .7rem;
+.textOutput {
+    font-size: 1.2rem;
+    list-style-type: none;
+}
+.emailOutput {
+    font-size: .8rem;
+    list-style-type: none;
 }

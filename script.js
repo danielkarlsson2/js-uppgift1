@@ -70,15 +70,19 @@ const setSuccess = (input) => {
 }
 
 // ----- Spara i lista -----
-let user = [];
+let users = [];
 
-
-// let userObjects = [{
-//     firstName: firstName.value, 
-//     lastName: lastName.value,
-//     email: email.value,
-//     id: 0
-// }
+const listInput = () => {
+    output.innerHTML = '';
+    users.forEach(user => {
+        output.innerHTML += `
+        <div class="success">
+        <li class="textOutput">${user.firstName} ${user.lastName}</li>
+        <li class="emailOutput">${user.email}</li>
+        </div>
+        <br>`;
+    })
+}
 
 
 
@@ -123,7 +127,7 @@ let user = [];
 
 
 // Test 1-----
-function myFunction(list){
+/* function myFunction(list){
     let text = "";
     let textEmail = "";
     let input = document.querySelectorAll("input");
@@ -139,10 +143,9 @@ function myFunction(list){
     let li = document.createElement("li");
     let node = document.createTextNode(text);
     li.appendChild(node);
-    document.getElementById("output").appendChild(li);
-    
+    document.getElementById("output").appendChild(li);    
 
-}
+} */
 
 // Test 2
 /* const newInput = document.createElement('li');
@@ -164,14 +167,6 @@ const validate = input => {
 
 regForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    
-    
-    // validateName(firstName); 
-    // validateName(lastName);     
-    // validateEmail(email);
-    // validate()
-    // myFunction();
-
 
     let errors = []
 
@@ -187,16 +182,21 @@ regForm.addEventListener('submit', (e) => {
             firstName: firstName.value,
             lastName: lastName.value,
             email: email.value
-            }
-    }
-    console.log(user);
-
-    // console.log(user);
-    
-    // output.innerHTML = ` 
-    // <div id="firstNameOutput">${firstName.value}  ${lastName.value}</div>
-    // <div id="emailOutput">${email.value}</div>`    
-
-    // regForm.reset();
-
-})
+            }            
+            
+        }
+        
+        console.log(user);
+        users.push(user);
+        listInput();
+        
+        
+        // console.log(user);
+        
+        // output.innerHTML = ` 
+        // <div id="firstNameOutput">${firstName.value}  ${lastName.value}</div>
+        // <div id="emailOutput">${email.value}</div>`    
+        
+        // regForm.reset();
+        
+    })
