@@ -17,6 +17,16 @@
     width: 100%;
     background-color: rgb(37, 155, 223);
 }
+.change {
+    width: 20%;
+    margin-bottom: 0rem;
+    background-color: rgb(216, 155, 41);
+}
+.save {
+    /* background-color: green; */
+    width: 20%;
+    margin-bottom: 0rem;
+}
 
 .inputs {
     position: relative;
@@ -60,4 +70,22 @@
 .emailOutput {
     font-size: .8rem;
     list-style-type: none;
+}
+
+
+/* List element */
+
+.lista {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.205);
+    border-radius: .5rem;
+    background-color: white;
+    padding: .8rem;
+    /* text-align: center; */
+    display: flex;
+    flex-direction: column;
+}
+.buttons {
+    display: flex;
+    justify-content: space-between;
 }

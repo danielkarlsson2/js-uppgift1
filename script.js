@@ -76,82 +76,24 @@ const listInput = () => {
     output.innerHTML = '';
     users.forEach(user => {
         output.innerHTML += `
-        <div class="success">
+        <div class="lista">
         <li class="textOutput">${user.firstName} ${user.lastName}</li>
         <li class="emailOutput">${user.email}</li>
+        <div class="buttons">
+        <button type="submit" class="btn btn-primary change">Ändra</button>
+        <button type="submit" class="btn btn-primary save">Spara</button>
         </div>
+        </div>
+        
+
         <br>`;
     })
 }
 
 
 
-// const createList = () => {
-//     for (i = 0; i < userObjects.length; i++) {
-//         let listItem = document.createElement('li');
-//         // listItem.className = 'unstyled';
-//         output.appendChild(listItem);
-//     }
-// }
-
-
 //  ----- END Spara -----
 
-
-
-
-
-// let addInfo = function () {
-
-//     const li = document.createElement('li');    
-//     // const info = document.createTextNode(firstName.value + ' ' + lastName.value);
-//     const info = document.createTextNode(userObjects.value);
-
-//     li.appendChild(info);
-//     li.classList.add('unstyled', 'list-group-item', 'list-group-item-info');
-    
-//     const listItem = document.getElementById("output");
-//     listItem.appendChild(li)
-//     // li.appendChild(text);
-//     // output.appendChild(li);
-//     // console.log(output);
-//     // li.appendChild(user);
-
-//     // output.innerHTML =  
-//     // `<li id="firstNameOutput" class="list-unstyled">${firstName.value} ${lastName.value}</li>
-//     // <li id="emailOutput" class="list-unstyled">${email.value}</li>`
-
-//     // ` <div id="firstNameOutput">${firstName.value}  ${lastName.value}</div>
-//     // <div id="emailOutput">${email.value}</div>`
-// }
-
-
-// Test 1-----
-/* function myFunction(list){
-    let text = "";
-    let textEmail = "";
-    let input = document.querySelectorAll("input");
-    textEmail = input[2].value;
-    // // let input = 
-    // for (var i = 0; i < input.length; i++) {
-    //     // text += input[i].value;
-    //     // text += input[i].value;
-    // }
-    text += input[0].value + ' ' + input[1].value + ' ' + textEmail;
-    
-    
-    let li = document.createElement("li");
-    let node = document.createTextNode(text);
-    li.appendChild(node);
-    document.getElementById("output").appendChild(li);    
-
-} */
-
-// Test 2
-/* const newInput = document.createElement('li');
-newInput.setAttribute("id", "firstNameOutput");
-output.appendChild(newInput)
-document.getElementById(output).innerHTML */
 
 
 
@@ -190,13 +132,5 @@ regForm.addEventListener('submit', (e) => {
         users.push(user);
         listInput();
         
-        
-        // console.log(user);
-        
-        // output.innerHTML = ` 
-        // <div id="firstNameOutput">${firstName.value}  ${lastName.value}</div>
-        // <div id="emailOutput">${email.value}</div>`    
-        
-        // regForm.reset();
-        
+    
     })
