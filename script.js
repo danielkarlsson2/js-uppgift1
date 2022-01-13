@@ -4,9 +4,15 @@ const lastName = document.querySelector('#lastName');
 const email = document.querySelector('#email');
 const regForm = document.querySelector('#regForm');
 const output = document.querySelector('#output');
+const listElement = document.querySelector('#listElements');
+const lista = document.querySelector('#lista');
+
+
 const btn = document.querySelector('#submit');
+const btnChange = document.querySelector('#btn-change')
 
 const error = document.querySelector('#error');
+const deleteButton = document.querySelector('#removeButton');
 
 
 // ----- Validering -----
@@ -76,24 +82,38 @@ const listInput = () => {
     output.innerHTML = '';
     users.forEach(user => {
         output.innerHTML += `
-        <div class="lista">
-        <li class="textOutput">${user.firstName} ${user.lastName}</li>
-        <li class="emailOutput">${user.email}</li>
-        <div class="buttons">
-        <button type="submit" class="btn btn-primary change">Ändra</button>
-        <button type="submit" class="btn btn-primary save">Spara</button>
-        </div>
+        <div class="lista" id="lista">
+
+            <div class="input-list">
+
+                <div class="userInput">
+                    <li class="textOutput">${user.firstName} ${user.lastName}</li>
+                    <li class="emailOutput">${user.email}</li>
+                </div>
+
+                <div class="btn-remove">
+                    <button type="submit" class="btn btn-primary btn-delete" id="removeButton">X</button>
+                </div>
+            </div>
+            
+            <div class="buttons">
+                <button type="button" class="btn btn-primary change" id="btn-change">Ändra</button>
+                <button type="button" class="btn btn-primary save d-none">Spara</button>
+            </div>
+
         </div>
         
 
         <br>`;
     })
 }
-
-
-
 //  ----- END Spara -----
+//  ----- Ändra med knapp -----
 
+
+
+
+// ----- Ändra END -----
 
 
 
@@ -124,13 +144,34 @@ regForm.addEventListener('submit', (e) => {
             firstName: firstName.value,
             lastName: lastName.value,
             email: email.value
-            }            
-            
-        }
+            }                        
+        
         
         console.log(user);
         users.push(user);
-        listInput();
-        
+
+        firstName.value = '';
+        lastName.value = '';
+        email.value = '';
+        firstName.classList.remove('is-valid');
+        lastName.classList.remove('is-valid');
+        email.classList.remove('is-valid');
+
+        listInput();   
+    }
     
     })
+
+    output.addEventListener('click', e => {
+        if(e.target.type === 'button') {
+            users = users.filter(user => user.id !==e.target.parentNode.id)           
+            
+            listInput();
+        }
+    })
+// deleteButton.onclick = () => {
+//     parentElement.remove(lista)
+// }
+  
+    
+
