@@ -5,14 +5,19 @@ const email = document.querySelector('#email');
 const regForm = document.querySelector('#regForm');
 const output = document.querySelector('#output');
 const listElement = document.querySelector('#listElements');
-const lista = document.querySelector('#lista');
 
 
 const btn = document.querySelector('#submit');
 const btnChange = document.querySelector('#btn-change')
+const save = document.querySelector('#btn-save');
+
 
 const error = document.querySelector('#error');
+
+const lista = document.querySelector('#lista');
+const items = document.getElementsByClassName('.input-list');
 const deleteButton = document.querySelector('#removeButton');
+
 
 
 // ----- Validering -----
@@ -62,10 +67,7 @@ const setError = (input, textMessage) => {
    input.classList.add('is-invalid');
    input.classList.remove('is-valid');
    parent.querySelector('.feedback').innerText = textMessage;
-//    const parent = input.previousElementSibling;
-//    parent.classList.add('is-invalid');
-//    parent.classList.remove('is-valid');
-//    parent.querySelector('.feedback').innerText = textMessage;
+
 }
 const setSuccess = (input) => {
     const parent = input.parentElement;
@@ -75,14 +77,16 @@ const setSuccess = (input) => {
   
 }
 
+
 // ----- Spara i lista -----
 let users = [];
+
 
 const listInput = () => {
     output.innerHTML = '';
     users.forEach(user => {
         output.innerHTML += `
-        <div class="lista" id="lista">
+        <div class="lista mb-3" id="${user.id}">
 
             <div class="input-list">
 
@@ -92,24 +96,48 @@ const listInput = () => {
                 </div>
 
                 <div class="btn-remove">
-                    <button type="submit" class="btn btn-primary btn-delete" id="removeButton">X</button>
+                    <button type="submit" class="btn btn-primary btn-delete" id="u">X</button>
                 </div>
             </div>
             
-            <div class="buttons">
-                <button type="button" class="btn btn-primary change" id="btn-change">Ändra</button>
-                <button type="button" class="btn btn-primary save d-none">Spara</button>
+            <div class="buttons mt-0">
+                <button type="button" class="btn btn-primary change mt-3" id="c${user.id}">Ändra</button>
+                <button type="button" class="btn btn-primary save mt-3" id="btn-save">Spara</button>
             </div>
 
-        </div>
+        </div>        
+
+        <br>`;                
+       /*  document.querySelector(`#u${user.id}`).addEventListener('click', () => {
+           users = users.filter(_user => _user.id !==user.id);     
+           console.log('DELETE');
+           listInput(users);
+           
+           
+        }) */
+        document.querySelector(`#c${user.id}`).addEventListener('click', () => {
+            users = users.filter(_user => _user.id !==user.id);     
+            firstName.value = user.firstName;
+            lastName.value = user.lastName;
+            email.value = user.email;
+            
+            // button.classList.remove('d-none');
+            
+            console.log('test');
+            // listInput(users);
+            
+
+        })
         
 
-        <br>`;
+        firstName.focus()
     })
+    
 }
+
+
 //  ----- END Spara -----
 //  ----- Ändra med knapp -----
-
 
 
 
@@ -147,7 +175,7 @@ regForm.addEventListener('submit', (e) => {
             }                        
         
         
-        console.log(user);
+        console.log(users);
         users.push(user);
 
         firstName.value = '';
@@ -162,16 +190,61 @@ regForm.addEventListener('submit', (e) => {
     
     })
 
-    output.addEventListener('click', e => {
-        if(e.target.type === 'button') {
-            users = users.filter(user => user.id !==e.target.parentNode.id)           
+    // ----- DELETE User
+output.addEventListener('click', e => {
+    // console.log(e.target.parentNode.parentNode.parentNode)
+    if(e.target.type === 'submit') {
+        console.log('detta är en submit')
+        users = users.filter(user => user.id !== e.target.parentNode.parentNode.parentNode.id)           
+        listInput();
+    }
+        // else if(e.target.type === 'button') {
+        //     console.log(e.target.parentNode.parentNode)
+        //     // users = users.filter(user => user.id !== e.target.parentNode.parentNode.id)      
+        //         firstName.value = user.firstName;
+        //         lastName.value = user.lastName;
+        //         email.value = user.email;     
+        //         // listInput();
+        // }
             
-            listInput();
-        }
-    })
-// deleteButton.onclick = () => {
-//     parentElement.remove(lista)
-// }
+})
+    // ----- Change User
+
   
     
 
+
+
+
+
+
+
+
+// function removeList(id) {
+//     users = users.filter(user => user.id !== id)
+//     listInput()
+// }
+// const createInputElement = user => {
+//     let card = document.createElement('div');
+//     card.classList.add('lista');
+
+//     let innerCard = document.createElement('div');
+//     innerCard.classList.add('input-list')
+
+//     let inputField = document.createElement('div');
+//     inputField.classList.add('userInput');
+
+//     let listInput = document.createElement('li');
+//     listInput.classList.add('textOutput');
+
+//     let emailInput = document.createElement('li');
+//     emailInput.classList.add('emailOutput');
+
+//     card.appendChild(innerCard);
+//     innerCard.appendChild(inputField);
+//     inputField.appendChild(listInput);
+
+//     output.appendChild
+
+//     return card;
+// }
