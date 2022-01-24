@@ -8,7 +8,7 @@ const listElement = document.querySelector('#listElements');
 
 
 const btn = document.querySelector('#submit');
-const btnChange = document.querySelector('#btn-change')
+const btnChange = document.getElementsByClassName('.change')
 const save = document.querySelector('#btn-save');
 
 
@@ -40,6 +40,8 @@ const validateName = (input) => {
 
 
 
+
+
 const validateEmail = email => {
    let regEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     
@@ -51,6 +53,11 @@ const validateEmail = email => {
         setError(email, 'Otillåten emailadress')
         return false;
     }
+    else if (users.includes(email.value)) {
+        setError(input, 'Mailadressen finns redan.')
+        return false;
+    }
+
     else {        
         setSuccess(email)
         return true;
@@ -81,11 +88,19 @@ const setSuccess = (input) => {
 // ----- Spara i lista -----
 let users = [];
 
-
-const listInput = () => {
-    output.innerHTML = '';
-    users.forEach(user => {
-        output.innerHTML += `
+/* const emailUnique = (input) => {
+    if (users.includes(input.value)){
+        setError(input, 'Mailadressen finns redan.')
+    }
+    else {
+        setSuccess(input)
+        return true;
+    }
+} */
+    
+const insertDomElement = (user) => {
+    // output.innerHTML += ;            
+        output.insertAdjacentHTML('afterbegin', `
         <div class="lista mb-3" id="${user.id}">
 
             <div class="input-list">
@@ -107,7 +122,26 @@ const listInput = () => {
 
         </div>        
 
-        <br>`;                
+        <br>`)
+}
+const addChangeClick = (user) => {
+    document.querySelector(`#c${user.id}`).addEventListener('click', () => {
+        
+        // document.getElementsByClassName('.change').innerHTML = "Spara";
+        refUser = user;
+        firstName.value = user.firstName;
+        lastName.value = user.lastName;
+        email.value = user.email;                               
+    })      
+
+}
+let refUser;
+
+const listInput = () => {
+    output.innerHTML = '';
+    users.forEach(user => {
+            insertDomElement(user)
+            addChangeClick(user)
        /*  document.querySelector(`#u${user.id}`).addEventListener('click', () => {
            users = users.filter(_user => _user.id !==user.id);     
            console.log('DELETE');
@@ -115,20 +149,7 @@ const listInput = () => {
            
            
         }) */
-        document.querySelector(`#c${user.id}`).addEventListener('click', () => {
-            users = users.filter(_user => _user.id !==user.id);     
-            firstName.value = user.firstName;
-            lastName.value = user.lastName;
-            email.value = user.email;
-            
-            // button.classList.remove('d-none');
-            
-            console.log('test');
-            // listInput(users);
-            
-
-        })
-        
+          
 
         firstName.focus()
     })
@@ -155,9 +176,10 @@ const validate = input => {
 }
 
 
+
 regForm.addEventListener('submit', (e) => {
     e.preventDefault();
-
+    
     let errors = []
 
     for(let i = 0; i < regForm.length; i++) {
@@ -186,6 +208,8 @@ regForm.addEventListener('submit', (e) => {
         email.classList.remove('is-valid');
 
         listInput();   
+        // insertDomElement(user);
+        // addChangeClick(user)
     }
     
     })
@@ -198,14 +222,14 @@ output.addEventListener('click', e => {
         users = users.filter(user => user.id !== e.target.parentNode.parentNode.parentNode.id)           
         listInput();
     }
-        // else if(e.target.type === 'button') {
-        //     console.log(e.target.parentNode.parentNode)
-        //     // users = users.filter(user => user.id !== e.target.parentNode.parentNode.id)      
-        //         firstName.value = user.firstName;
-        //         lastName.value = user.lastName;
-        //         email.value = user.email;     
-        //         // listInput();
-        // }
+        /* else if(e.target.type === 'button') {
+            console.log(e.target.parentNode.parentNode)
+            // users = users.filter(user => user.id !== e.target.parentNode.parentNode.id)      
+                firstName.value = user.firstName;
+                lastName.value = user.lastName;
+                email.value = user.email;     
+                listInput();
+        } */
             
 })
     // ----- Change User
