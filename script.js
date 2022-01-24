@@ -211,6 +211,14 @@ regForm.addEventListener('submit', (e) => {
         // insertDomElement(user);
         // addChangeClick(user)
     }
+    // --------------------testar ändra användare
+    if (refUser) {
+        save.addEventListener('button', (e) => {
+              console.log('Refuser test');
+           firstName = firstName.value
+        })
+      
+    }
     
     })
 
