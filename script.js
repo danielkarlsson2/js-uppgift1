@@ -16,7 +16,7 @@ const error = document.querySelector('#error');
 
 const lista = document.querySelector('#lista');
 const items = document.getElementsByClassName('.input-list');
-const deleteButton = document.querySelector('#removeButton');
+
 
 
 
@@ -37,9 +37,6 @@ const validateName = (input) => {
         return true;
     }
 }
-
-
-
 
 
 const validateEmail = email => {
@@ -65,7 +62,6 @@ const validateEmail = email => {
     }
 }
 
-
 // ----- END  -----
 
 // ----- Feedback funktioner -----
@@ -88,20 +84,11 @@ const setSuccess = (input) => {
 // ----- Spara i lista -----
 let users = [];
 
-/* const emailUnique = (input) => {
-    if (users.includes(input.value)){
-        setError(input, 'Mailadressen finns redan.')
-    }
-    else {
-        setSuccess(input)
-        return true;
-    }
-} */
     
 const insertDomElement = (user) => {
     // output.innerHTML += ;            
         output.insertAdjacentHTML('afterbegin', `
-        <div class="lista mb-3" id="${user.id}">
+        <div class="lista mb-3" id="user${user.id}">
 
             <div class="input-list">
 
@@ -111,19 +98,31 @@ const insertDomElement = (user) => {
                 </div>
 
                 <div class="btn-remove">
-                    <button type="submit" class="btn btn-primary btn-delete" id="u">X</button>
+                    <button type="submit" class="btn btn-primary btn-delete" id="delete${user.id}">X</button>
                 </div>
             </div>
             
             <div class="buttons mt-0">
                 <button type="button" class="btn btn-primary change mt-3" id="c${user.id}">Ändra</button>
-                <button type="button" class="btn btn-primary save mt-3" id="btn-save">Spara</button>
+                <button type="button" class="btn btn-primary save mt-3" id="save${user.id}">Spara</button>
             </div>
 
         </div>        
 
         <br>`)
 }
+
+// ----- Knappar -----
+const deleteUser = (user) => {
+    document.querySelector(`#delete${user.id}`).addEventListener('click', function() {
+             
+        this.parentNode.parentNode.parentNode.remove()
+        users.splice(users.indexOf(user), 1)
+        console.log(users);
+        
+    })
+}
+
 const addChangeClick = (user) => {
     document.querySelector(`#c${user.id}`).addEventListener('click', () => {
         
@@ -131,38 +130,40 @@ const addChangeClick = (user) => {
         refUser = user;
         firstName.value = user.firstName;
         lastName.value = user.lastName;
-        email.value = user.email;                               
-    })      
+        email.value = user.email;       
+        
+        document.querySelector(`#save${user.id}`).addEventListener('click', function() {
+                      
+            user.firstName = firstName.value;
+            user.lastName = lastName.value;
+            user.email = email.value;
 
+            firstName.value = ''
+            lastName.value = ''
+            email.value = ''
+            console.log(users);
+            listInput();
+        })
+    })      
 }
+// ----- Knapp END -----
+
 let refUser;
+
 
 const listInput = () => {
     output.innerHTML = '';
     users.forEach(user => {
-            insertDomElement(user)
-            addChangeClick(user)
-       /*  document.querySelector(`#u${user.id}`).addEventListener('click', () => {
-           users = users.filter(_user => _user.id !==user.id);     
-           console.log('DELETE');
-           listInput(users);
-           
-           
-        }) */
-          
-
+        insertDomElement(user)
+        addChangeClick(user)          
+        deleteUser(user)     
+        // saveChange(user)
         firstName.focus()
     })
     
 }
 
-
 //  ----- END Spara -----
-//  ----- Ändra med knapp -----
-
-
-
-// ----- Ändra END -----
 
 
 
@@ -185,7 +186,7 @@ regForm.addEventListener('submit', (e) => {
     for(let i = 0; i < regForm.length; i++) {
         errors[i] = validate(regForm[i])
     }
-    console.log(errors);
+    // console.log(errors);
 
     if(!errors.includes(false)) {
         
@@ -194,11 +195,10 @@ regForm.addEventListener('submit', (e) => {
             firstName: firstName.value,
             lastName: lastName.value,
             email: email.value
-            }                        
+            }                      
         
-        
-        console.log(users);
         users.push(user);
+        console.log(users);
 
         firstName.value = '';
         lastName.value = '';
@@ -211,72 +211,5 @@ regForm.addEventListener('submit', (e) => {
         // insertDomElement(user);
         // addChangeClick(user)
     }
-    // --------------------testar ändra användare
-    if (refUser) {
-        save.addEventListener('button', (e) => {
-              console.log('Refuser test');
-           firstName = firstName.value
-        })
-      
-    }
     
     })
-
-    // ----- DELETE User
-output.addEventListener('click', e => {
-    // console.log(e.target.parentNode.parentNode.parentNode)
-    if(e.target.type === 'submit') {
-        console.log('detta är en submit')
-        users = users.filter(user => user.id !== e.target.parentNode.parentNode.parentNode.id)           
-        listInput();
-    }
-        /* else if(e.target.type === 'button') {
-            console.log(e.target.parentNode.parentNode)
-            // users = users.filter(user => user.id !== e.target.parentNode.parentNode.id)      
-                firstName.value = user.firstName;
-                lastName.value = user.lastName;
-                email.value = user.email;     
-                listInput();
-        } */
-            
-})
-    // ----- Change User
-
-  
-    
-
-
-
-
-
-
-
-
-// function removeList(id) {
-//     users = users.filter(user => user.id !== id)
-//     listInput()
-// }
-// const createInputElement = user => {
-//     let card = document.createElement('div');
-//     card.classList.add('lista');
-
-//     let innerCard = document.createElement('div');
-//     innerCard.classList.add('input-list')
-
-//     let inputField = document.createElement('div');
-//     inputField.classList.add('userInput');
-
-//     let listInput = document.createElement('li');
-//     listInput.classList.add('textOutput');
-
-//     let emailInput = document.createElement('li');
-//     emailInput.classList.add('emailOutput');
-
-//     card.appendChild(innerCard);
-//     innerCard.appendChild(inputField);
-//     inputField.appendChild(listInput);
-
-//     output.appendChild
-
-//     return card;
-// }
