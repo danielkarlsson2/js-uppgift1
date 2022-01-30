@@ -21,7 +21,7 @@ const items = document.getElementsByClassName('.input-list');
 
 
 // ----- Validering -----
-
+let users = [];
 const validateName = (input) => {     
     
     if(input.value.trim() === '') {
@@ -50,8 +50,10 @@ const validateEmail = email => {
         setError(email, 'Otillåten emailadress')
         return false;
     }
-    else if (users.includes(email.value)) {
-        setError(input, 'Mailadressen finns redan.')
+    // else if (refUser.includes(users.value))   {
+    else if (users.includes(email.value))   {
+        let email = 
+        setError(email, 'Mailadressen finns redan.')
         return false;
     }
 
@@ -61,6 +63,7 @@ const validateEmail = email => {
     
     }
 }
+
 
 // ----- END  -----
 
@@ -82,7 +85,7 @@ const setSuccess = (input) => {
 
 
 // ----- Spara i lista -----
-let users = [];
+
 
     
 const insertDomElement = (user) => {
@@ -156,9 +159,9 @@ const listInput = () => {
     users.forEach(user => {
         insertDomElement(user)
         addChangeClick(user)          
-        deleteUser(user)     
-        // saveChange(user)
+        deleteUser(user)    
         firstName.focus()
+        
     })
     
 }
