@@ -4,7 +4,7 @@ const lastName = document.querySelector('#lastName');
 const email = document.querySelector('#email');
 const regForm = document.querySelector('#regForm');
 const output = document.querySelector('#output');
-const listElement = document.querySelector('#listElements');
+
 
 
 const btn = document.querySelector('#submit');
@@ -50,7 +50,6 @@ const validateEmail = email => {
         setError(email, 'Otillåten emailadress')
         return false;
     }
-    // else if (refUser.includes(users.value))   {
     else if (users.includes(email.value))   {
         let email = 
         setError(email, 'Mailadressen finns redan.')
@@ -107,7 +106,7 @@ const insertDomElement = (user) => {
             
             <div class="buttons mt-0">
                 <button type="button" class="btn btn-primary change mt-3" id="c${user.id}">Ändra</button>
-                <button type="button" class="btn btn-primary save mt-3" id="save${user.id}">Spara</button>
+                <button type="button" class="btn bg-secondary save mt-3" id="save${user.id}">Spara</button>
             </div>
 
         </div>        
@@ -129,7 +128,7 @@ const deleteUser = (user) => {
 const addChangeClick = (user) => {
     document.querySelector(`#c${user.id}`).addEventListener('click', () => {
         
-        // document.getElementsByClassName('.change').innerHTML = "Spara";
+        
         refUser = user;
         firstName.value = user.firstName;
         lastName.value = user.lastName;
@@ -189,7 +188,6 @@ regForm.addEventListener('submit', (e) => {
     for(let i = 0; i < regForm.length; i++) {
         errors[i] = validate(regForm[i])
     }
-    // console.log(errors);
 
     if(!errors.includes(false)) {
         
@@ -211,8 +209,6 @@ regForm.addEventListener('submit', (e) => {
         email.classList.remove('is-valid');
 
         listInput();   
-        // insertDomElement(user);
-        // addChangeClick(user)
     }
     
     })
